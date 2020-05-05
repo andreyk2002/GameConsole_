@@ -9,6 +9,9 @@ namespace tst
    
     class Program
     {
+        class Program
+    {
+        // вначале хотел сделать юзер-френдли интерфейс....
         /*
         private static void SetHero(Character hero)
         {
@@ -59,6 +62,9 @@ namespace tst
             Character hero = null;
             Character badGuy = null;
             Mage mage = null;
+            //создание персонажей
+            //
+            //
             try
             {
                 hero = new Character("Player","Human","Female");
@@ -96,12 +102,37 @@ namespace tst
             badGuy.Age = 50;
             mage.Age = 100;
 
-            mage.MaxHP = 500;
-            mage.CurrentHP = 500;
+           
 
-            Console.WriteLine("Текущее значению маны персонажа = " + mage.CurrentMana);
+            Console.WriteLine("Текущее значение маны мага = " + mage.CurrentMana);
 
-            mage.LearnSpell(new )
+            //Заклинания
+
+            mage.LearnSpell(new UnRoot());
+            mage.ForgotSpell(new UnRoot());
+            mage.CastSpell(new UnRoot());
+
+
+            mage.CurrentHP = 30;
+
+            mage.LearnSpell(new IncreaseHP());
+            mage.CastSpell(new IncreaseHP(),30);
+
+
+            
+            Console.WriteLine("Текущее значение маны мага = " + mage.CurrentMana);
+            Console.WriteLine("Текущее значение хп мага = " + mage.CurrentHP);
+
+            Console.WriteLine();
+            Character experimentalMen = new Character("Его надо возродить", Race.Elf, Gender.Male);
+            experimentalMen.CurrentHP = 0;
+            Console.WriteLine("Текущее значение хп эльфа = " + experimentalMen.CurrentHP);
+            Console.WriteLine("Текущее состояние эльфа = " + experimentalMen.Condition.ToString());
+
+            mage.LearnSpell(new Revive());
+            mage.CastSpell(new Revive(), 1, experimentalMen);
+            Console.WriteLine("Текущее значение хп эльфа = " + experimentalMen.CurrentHP);
+            Console.WriteLine("Текущее состояние эльфа = " + experimentalMen.Condition.ToString());
 
         }
     }
