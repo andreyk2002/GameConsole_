@@ -133,6 +133,15 @@ namespace tst
             mage.CastSpell(new Revive(), 1, experimentalMen);
             Console.WriteLine("Текущее значение хп эльфа = " + experimentalMen.CurrentHP);
             Console.WriteLine("Текущее состояние эльфа = " + experimentalMen.Condition.ToString());
+           
+           //aртефакты
+
+            Console.WriteLine();
+            hero.UseArtefact(new EyeOfVasilisk(10), badGuy);
+            DeadWater findArtefactDW = new DeadWater(BottleType.Малая);
+            hero.Inventory.AddItem(findArtefactDW);
+            hero.UseArtefact(findArtefactDW, badGuy);
+            hero.UseArtefact(findArtefactDW,mage);
 
         }
     }
