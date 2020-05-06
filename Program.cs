@@ -65,39 +65,17 @@ namespace tst
             //создание персонажей
             //
             //
-            try
-            {
-                hero = new Character("Player","Human","Female");
+            //Нормально ли, что при выборе несуществующей расы создаётся персонаж с расой Human
+            hero = new Character("Player", "numan", "Female");
 
-            }
-            catch (ArgumentException aExeption)
-            {
-               
-                Console.WriteLine(aExeption.Message);
-                return;
-            }
-            try
-            {
-                mage = new Mage("Gendalf", Race.Human, Gender.Male);
+            mage = new Mage("Gendalf", Race.Human, Gender.Male);
 
-            }
-            catch (ArgumentException aExeption)
-            {
 
-                Console.WriteLine(aExeption.Message);
-                return;
-            }
-            try
-            {
-                badGuy = new Character("", Race.Goblin, Gender.Male);
+            badGuy = new Character("Ыыынгыз", Race.Goblin, Gender.Male);
 
-            }
-            catch (ArgumentException aExeption)
-            {
 
-                Console.WriteLine(aExeption.Message);
-                return;
-            }
+            badGuy.Age = 50;
+            mage.Age = 100;
 
             badGuy.Age = 50;
             mage.Age = 100;
