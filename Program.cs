@@ -102,8 +102,6 @@ namespace tst
             badGuy.Age = 50;
             mage.Age = 100;
 
-           
-
             Console.WriteLine("Текущее значение маны мага = " + mage.CurrentMana);
 
             //Заклинания
@@ -130,19 +128,81 @@ namespace tst
             Console.WriteLine("Текущее состояние эльфа = " + experimentalMen.Condition.ToString());
 
             mage.LearnSpell(new Revive());
-            mage.CastSpell(new Revive(), 1, experimentalMen);
+            mage.CastSpell(new Revive(),1, experimentalMen);
+            //эх не получилось
             Console.WriteLine("Текущее значение хп эльфа = " + experimentalMen.CurrentHP);
             Console.WriteLine("Текущее состояние эльфа = " + experimentalMen.Condition.ToString());
-           
-           //aртефакты
+
+            //aртефакты
 
             Console.WriteLine();
+
             hero.UseArtefact(new EyeOfVasilisk(10), badGuy);
             DeadWater findArtefactDW = new DeadWater(BottleType.Малая);
             hero.Inventory.AddItem(findArtefactDW);
-            hero.UseArtefact(findArtefactDW, badGuy);
             hero.UseArtefact(findArtefactDW,mage);
+        
 
-        }
-    }
-}
+            LightningStaff findArtefactLS = new LightningStaff(125);
+            //попытка самоустранится
+            hero.Inventory.AddItem(findArtefactLS);
+            hero.UseArtefact(findArtefactLS,hero,40);
+            //  почти удалось!
+            
+            Console.WriteLine("Текущее значение хп игрока = " + hero.CurrentHP);
+            Console.WriteLine("Текущее состояние игрока = " + hero.Condition.ToString()+"\n");
+
+            hero.UseArtefact(findArtefactLS,badGuy,45);
+            Console.WriteLine("Текущее значение хп гоблина-вражины = " + badGuy.CurrentHP);
+            Console.WriteLine("Текущее состояние гоблина-вражины = " + badGuy.Condition.ToString() + "\n");
+
+            
+
+            PoisonousSaliva saliva = new PoisonousSaliva(52);
+            badGuy.Inventory.AddItem(saliva);
+            badGuy.UseArtefact(saliva, hero, 26);
+            Console.WriteLine("Текущее значение хп игрока = " + hero.CurrentHP);
+            Console.WriteLine("Текущее состояние игрока = " + hero.Condition.ToString() + "\n");
+
+            FrogDecoction healPoison = new FrogDecoction();
+            mage.Inventory.AddItem(healPoison);
+            mage.UseArtefact(healPoison, hero, 25);
+            Console.WriteLine("Текущее значение хп игрока = " + hero.CurrentHP);
+            Console.WriteLine("Текущее состояние игрока = " + hero.Condition.ToString() + "\n");
+
+            //попытка использовать не реюзабельный артефакт
+            mage.UseArtefact(healPoison, hero, 25);
+
+            HolyWater holyWater = new HolyWater(BottleType.Большая);
+            hero.Inventory.AddItem(holyWater);
+            hero.UseArtefact(holyWater);
+            Console.WriteLine("Текущее значение хп игрока = " + hero.CurrentHP);
+            Console.WriteLine("Текущее состояние игрока = " + hero.Condition.ToString() + "\n");
+            //передаём посох магу
+            hero.Inventory.GiveItem(mage, "Посох молнии");
+            // и сразу в бой
+            mage.UseArtefact(findArtefactLS,badGuy,20);
+            Console.WriteLine("Текущее значение хп гоблина-вражины = " + badGuy.CurrentHP);
+            Console.WriteLine("Текущее состояние гоблина-вражины = " + badGuy.Condition.ToString() + "\n");
+
+
+            //сравнение игроков
+            Console.WriteLine(mage.CompareTo(hero));
+            Console.WriteLine(hero.CompareTo(badGuy));
+            //если добавить опыта, то всё изменится
+            mage.Exp = 100;
+            Console.WriteLine(mage.CompareTo(hero)+ "\n");
+            
+
+            //Работа брони
+            mage.LearnSpell(new Armor());
+            //cначала подбавим маны
+            mage.CurrentMana = 100;
+            Console.WriteLine("Текущее значение хп мага = " + mage.CurrentHP);
+
+            mage.CastSpell(new Armor());
+            //попробуем задомажить теперь мага
+            mage.CurrentHP = 15;
+
+            Console.WriteLine("Текущее состояние мага = " + mage.Condition.ToString());
+            Console.WriteLine("Текущее значение хп мага = " + mage.CurrentHP);
