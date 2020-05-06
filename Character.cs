@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG
+namespace tst
 {
     public enum Condition
     {
@@ -61,56 +61,37 @@ namespace RPG
         public bool AbleToSpeak { get; set; } = true;
         public bool AbleToMove { get; set; } = true;
         public Race Race { get; private set; }
-        
+
+        public Gender Gender { get; private set; }
+        public int Age { get; set; } = 18;
+
         private void SetRace(string raceName)
         {
-            switch (raceName)
+            try
             {
-               
-                case "Human":
-                case "human":
-                    this.Race = Race.Human;
-                    break;
-                case "Elf":
-                case "elf":
-                    this.Race = Race.Elf;
-                    break;
-                case "Ork":
-                case "ork":
-                    this.Race = Race.Ork;
-                    break;
-                case "Goblin":
-                case "goblin":
-                    this.Race = Race.Goblin;
-                    break;
-                default:
-                    throw new ArgumentException("Попытка создания персонажа с несуществующей" +
-                        " рассой: " + raceName);
-                   
+                this.Race = (Race)Enum.Parse(typeof(Race),raceName, true);
             }
+
+            catch(Exception ex)
+            {
+                Console.WriteLine("Не удалось создать персонажа с рассой " + raceName);
+            }
+            
         }
         private void SetGender(string genderName)
         {
-            switch (genderName)
+            try
             {
-                //
-                case "Male":
-                case "male":
-                    this.Gender = Gender.Male;
-                    break;
-                case "Female":
-                case "female":
-                    this.Gender = Gender.Female;
-                    break;
-                    
-                default:
-                    throw new ArgumentException("Попытка создания персонажа с несуществующим полом" +
-                      " рассой: " + genderName);
-                    
+                this.Gender = (Gender)Enum.Parse(typeof(Gender), genderName, true);
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Не удалось создать персонажа с рассой " + genderName);
             }
         }
-        public Gender Gender { get; private set; }
-        public int Age { get; set; } = 18;
+        
+       
 
         protected int currentHP = 100;
         public int CurrentHP
