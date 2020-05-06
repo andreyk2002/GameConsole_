@@ -206,3 +206,6 @@ namespace tst
 
             Console.WriteLine("Текущее состояние мага = " + mage.Condition.ToString());
             Console.WriteLine("Текущее значение хп мага = " + mage.CurrentHP);
+         }
+    }
+}
